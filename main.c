@@ -12,11 +12,16 @@ typedef unsigned char _uint8_t;
 
 int main(void)
 {
-  // _uint64_t a = c_input_number();
-  // a *= 2;
-  // c_print_number(a);
+  // int n = c_input_number();
+  // c_print_number(n);
   // c_print_empty_line();
-  //
+  // c_print_bin(n);
+  // c_print_empty_line();
+  // c_print_oct(n);
+  // c_print_empty_line();
+  // c_print_hex(n);
+  // c_print_empty_line();
+
   // _uint64_t time_now = c_time_now();
   // c_srand(time_now);
   // c_print_number(c_rand());
@@ -29,8 +34,8 @@ int main(void)
   // _uint64_t n = c_input_number();
   // c_print_f("[%d]\n", c_fibonacci(n));
 
-  // _uint8_t arrayNumber[7] = {1, 3, 0, 92, 123, 22, 11};
-  // c_print_bytes(arrayNumber, LENGTH(arrayNumber));
+  _uint8_t arrayNumber[7] = {1, 3, 0, 92, 123, 22, 11};
+  c_print_bytes(arrayNumber, LENGTH(arrayNumber));
   // c_bubble_sort(arrayNumber, LENGTH(arrayNumber));
   // c_print_empty_line();
   // c_print_bytes(arrayNumber, LENGTH(arrayNumber));
@@ -49,10 +54,10 @@ int main(void)
   // c_number_to_string(num, STR, 4);
   // c_print_f("string -> %s\n", STR);
 
-  char* past = "#include <stdio.h>\n\nint main(void)\n{\n\tprintf(\"Hello world!\\n\");\n}";
-  _uint64_t descriptor = c_fcreate("xxx.c", 0666);
-  c_fwrite(descriptor, past, c_length_string(past));
-  c_fclose(descriptor);
+  // char* past = "#include <stdio.h>\n\nint main(void)\n{\n\tprintf(\"Hello world!\\n\");\n}";
+  // _uint64_t descriptor = c_fcreate("xxx.c", 0666);
+  // c_fwrite(descriptor, past, c_length_string(past));
+  // c_fclose(descriptor);
 
   // char* hi = "Hello, world";
   // _uint64_t descriptor = c_fopen("xxx.c", 1);
