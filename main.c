@@ -12,6 +12,8 @@ typedef unsigned char _uint8_t;
 
 int main(void)
 {
+  int gcdNUM = c_gcd(1240, 790);
+  c_print_number(gcdNUM);
   // int n = c_input_number();
   // c_print_number(n);
   // c_print_empty_line();
@@ -34,8 +36,8 @@ int main(void)
   // _uint64_t n = c_input_number();
   // c_print_f("[%d]\n", c_fibonacci(n));
 
-  _uint8_t arrayNumber[7] = {1, 3, 0, 92, 123, 22, 11};
-  c_print_bytes(arrayNumber, LENGTH(arrayNumber));
+  // _uint8_t arrayNumber[7] = {1, 3, 0, 92, 123, 22, 11};
+  // c_print_bytes(arrayNumber, LENGTH(arrayNumber));
   // c_bubble_sort(arrayNumber, LENGTH(arrayNumber));
   // c_print_empty_line();
   // c_print_bytes(arrayNumber, LENGTH(arrayNumber));

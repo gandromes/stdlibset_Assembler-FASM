@@ -95,7 +95,7 @@
           ```java
             tab    %
           ```
-    - **c_print_bytes** - this function takes a tuple of numbers and the number of elements in it, then goes through each number and calls print_number on it, increments the counter and this cycle ends only when the counter reaches the number of elements in the tuple
+    - **c_print_bytes** - this function takes a tuple of numbers and the number of elements in it, then goes through each number and calls print_number on it, increments the counter and this cycle ends only when the counter reaches the number of elements in the tuple.
         - code
           ```c
             unsigned char numArr[5] = {3, 2, 1, 5, 7};
@@ -105,7 +105,7 @@
           ```java
             [ 3, 2, 1, 5, 7 ]%
           ```
-    - **c_print_f** - this is a super function that can substitute and call the functions that were mentioned above, looking at the next character after the special character "%", also catches escape characters starting with the special symbol "\"
+    - **c_print_f** - this is a super function that can substitute and call the functions that were mentioned above, looking at the next character after the special character "%", also catches escape characters starting with the special symbol "\".
         - code
           ```c
             c_print_f("%s %c \n\t %b %o %h %d", "String", "S", 121, 121, 121, 121);
@@ -116,7 +116,7 @@
                 0b1111001 0171  121%
           ```
 2. #include **"asm_lib/`str.asm`"** - this library implements functions to work with strings:
-    - **length_string** - we go along the original string until we reach 0 bytes (the end of the string), incrementing the counter, at the end we return it
+    - **c_length_string** - we go along the original string until we reach 0 bytes (the end of the string), incrementing the counter, at the end we return it.
         - code
           ```c
             int length = c_length_string("H E L L O");
@@ -126,18 +126,19 @@
           ```java
             9%
           ```
-    - **number_to_string** - we create a counter and divide the number by 10 each time, add "0" to the remaining n(0-9), we get n("0"-"9"), put it on the stack, create a counter 2 from 0 to the value of the first counter, take n("0"-"9") from the stack and place it at the source address plus the offset in the form of counter2 and increase the counter when counter2 is equal to the first counter, this means that you need to put the end of line character (byte 0)
+    - **c_number_to_string** - we create a counter and divide the number by 10 each time, add "0" to the remaining n(0-9), we get n("0"-"9"), put it on the stack, create a counter 2 from 0 to the value of the first counter, take n("0"-"9") from the stack and place it at the source address plus the offset in the form of counter2 and increase the counter when counter2 is equal to the first counter, this means that you need to put the end of line character (byte 0).
         - code
           ```c
+            int number = 749;
             static unsigned char buffer[4];
-            c_number_to_string(749, buffer, 4);
+            c_number_to_string(number, buffer, 4);
             c_print_string(buffer);
           ```
         - output
           ```rust
             749%
           ```
-    - **string_to_number** - we go along the line, increment the counter, while subtracting the character "0" from n ("0"-"9"), thus, we get a number that we subsequently put on the stack. Let's create a counter2, which will correspond to the value 0 going up to the first counter, then take a number from the stack and multiply it by 10, then multiply this number by the value of counter2 (exmp: "413" == 4 * 10 * 3 + 1 * 10 * 2 + 3 * 10 * 1)
+    - **c_string_to_number** - we go along the line, increment the counter, while subtracting the character "0" from n ("0"-"9"), thus, we get a number that we subsequently put on the stack. Let's create a counter2, which will correspond to the value 0 going up to the first counter, then take a number from the stack and multiply it by 10, then multiply this number by the value of counter2 (exmp: "413" == 4 * 10 * 3 + 1 * 10 * 2 + 3 * 10 * 1).
         - code
           ```c
             unsigned char* strigNUM = "983";
@@ -147,4 +148,57 @@
         - output
           ```java
             983%
+          ```
+3. #include **"asm_lib/`mth.asm`"** - this library implements mathematical functions:
+    - **c_gcd** - this function finds the greatest common divisor according to the Euclid algorithm.
+        - code
+          ```c
+            int gcdNUM = c_gcd(1240, 790);
+            c_print_number(gcdNUM);
+          ```
+        - output
+          ```java
+            10%
+          ```
+    - **c_fibonacci** - this function calculates the n number fibonacci using only a loop without the stack.
+        - code
+          ```c
+            int number = c_fibonacci(13);
+            c_print_number(number);
+          ```
+        - output
+          ```java
+            233%
+          ```
+    - **c_factorial** - this function calculates the n number factorial using very ez algoritm in loop.
+        - code
+          ```c
+            int number = c_factorial(5);
+            c_print_number(number);
+          ```
+        - output
+          ```java
+            120%
+          ```
+    - **c_srand** - this is a function to generate a seed for use in subsequent function calls.
+        - code
+          ```c
+            c_srand(43);
+          ```
+    - **c_rand** - the pseudorandom number generator function takes the SEED from the register and uses transformations with it with the answer of such a function is a number, if you set another SEED using the c_srand(SEED) function, you can set the SEED as times tamp (like, c_time_now) to randomness.
+        - code
+          ```c
+            c_srand(c_time_now());
+            unsigned long long int randomNumber = c_rand();
+            c_print_number(randomNumber);
+          ```
+        - output
+          ```java
+            random number example -> 12341234%
+          ```
+4. #include **"asm_lib/`sys.asm`"** - this library implements system calls:
+    - **c_exit** - this function passes the necessary parameters to the registers to terminate the program and causes a system interrupt.
+        - code
+          ```c
+            c_exit();
           ```
