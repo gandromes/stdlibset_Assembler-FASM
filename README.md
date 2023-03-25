@@ -35,6 +35,16 @@
             newline
             %
           ```
+    - **c_print_tab** - identical to print_string, except that the original value in the rcx register is strictly set to tab (4 whitespace).
+        - code
+          ```c
+            c_print_string("tab");
+            c_print_tab();
+          ```
+        - output
+          ```java
+            tab    %
+          ```
     - **c_print_number** - we divide the number by 10 as long as possible, add the character "0" to the remainder of the division, which means converting the number n (0-9) to the character n ("0"-"9") and put it on the stack, as soon as the original number cannot be divided, we extract n("0"-"9") from the stack, one by one and execute print_char().
         - code
           ```c
@@ -94,4 +104,14 @@
         - output
           ```java
             [ 3, 2, 1, 5, 7 ]%
+          ```
+    - **c_print_f** - this is a super function that can substitute and call the functions that were mentioned above, looking at the next character after the special character "%", also catches escape characters starting with the special symbol "\"
+        - code
+          ```c
+            c_print_f("%s %c \n\t %b %o %h %d", "String", "S", 121, 121, 121, 121);
+          ```
+        - output
+          ```java
+            String C
+                0b1111001 0171  121%
           ```
