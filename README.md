@@ -115,3 +115,36 @@
             String C
                 0b1111001 0171  121%
           ```
+2. #include **"asm_lib/`str.asm`"** - this library implements functions to work with strings:
+    - **length_string** - we go along the original string until we reach 0 bytes (the end of the string), incrementing the counter, at the end we return it
+        - code
+          ```c
+            int length = c_length_string("H E L L O");
+            c_print_number(length);
+          ```
+        - output
+          ```java
+            9%
+          ```
+    - **number_to_string** - we create a counter and divide the number by 10 each time, add "0" to the remaining n(0-9), we get n("0"-"9"), put it on the stack, create a counter 2 from 0 to the value of the first counter, take n("0"-"9") from the stack and place it at the source address plus the offset in the form of counter2 and increase the counter when counter2 is equal to the first counter, this means that you need to put the end of line character (byte 0)
+        - code
+          ```c
+            static unsigned char buffer[4];
+            c_number_to_string(749, buffer, 4);
+            c_print_string(buffer);
+          ```
+        - output
+          ```rust
+            749%
+          ```
+    - **string_to_number** - we go along the line, increment the counter, while subtracting the character "0" from n ("0"-"9"), thus, we get a number that we subsequently put on the stack. Let's create a counter2, which will correspond to the value 0 going up to the first counter, then take a number from the stack and multiply it by 10, then multiply this number by the value of counter2 (exmp: "413" == 4 * 10 * 3 + 1 * 10 * 2 + 3 * 10 * 1)
+        - code
+          ```c
+            unsigned char* strigNUM = "983";
+            unsigned int number = c_string_to_number(strigNUM);
+            c_print_number(number);
+          ```
+        - output
+          ```java
+            983%
+          ```
