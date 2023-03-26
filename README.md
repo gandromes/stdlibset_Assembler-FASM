@@ -85,16 +85,6 @@
           ```java
             0x4D%
           ```
-    - **c_print_tab** - identical to print_string, except that the original value in the rcx register is strictly set to tab (4 whitespace).
-        - code
-          ```c
-            char* str = "tab";
-            c_print_tab();
-          ```
-        - output
-          ```java
-            tab    %
-          ```
     - **c_print_bytes** - this function takes a tuple of numbers and the number of elements in it, then goes through each number and calls print_number on it, increments the counter and this cycle ends only when the counter reaches the number of elements in the tuple.
         - code
           ```c
