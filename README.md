@@ -105,7 +105,7 @@
             String C
                 0b1111001 0171  121%
           ```
-2. #include **"asm_lib/`str.asm`"** - this library implements functions to work with strings:
+2. #include **"asm_lib/`str.h`"** - this library implements functions to work with strings:
     - **c_length_string** - we go along the original string until we reach 0 bytes (the end of the string), incrementing the counter, at the end we return it.
         - code
           ```c
@@ -139,7 +139,7 @@
           ```java
             983%
           ```
-3. #include **"asm_lib/`mth.asm`"** - this library implements mathematical functions:
+3. #include **"asm_lib/`mth.h`"** - this library implements mathematical functions:
     - **c_gcd** - this function finds the greatest common divisor according to the Euclid algorithm.
         - code
           ```c
@@ -182,11 +182,25 @@
             unsigned long long int randomNumber = c_rand();
             c_print_number(randomNumber);
           ```
+        - output (random number example ->)
+          ```java
+             1569234%
+          ```
+4. #include **"asm_lib/`srt.h`"** - this library implements sort algoritm functions:
+    - **c_bubble_sort** - this function works according to the data until the counter becomes zero, while we look at each element, and if it is larger than the next one, then we change them with each other, each time the counter value becomes one less
+        - code
+          ```c
+            #define size 6
+            char numberArray[size] = {29, 12, 0, 99, 103, -59};
+            c_bubble_sort(numberArray, size);
+            c_print_bytes(numberArray, size);
+          ```
         - output
           ```java
-            random number example -> 12341234%
+             [ 197 0 12 29 99 103 ]%
+             // yes, 197 is an additional code for the digit -59
           ```
-4. #include **"asm_lib/`sys.asm`"** - this library implements system calls:
+5. #include **"asm_lib/`sys.h`"** - this library implements system calls:
     - **c_exit** - this function passes the necessary parameters to the registers to terminate the program and causes a system interrupt.
         - code
           ```c
