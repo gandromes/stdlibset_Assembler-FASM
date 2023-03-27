@@ -314,3 +314,11 @@
           ```c
             c_exit();
           ```
+---
+
+## How to use:
+**0) clone this repository**
+
+**1) add the libraries you need for the project to main.c ' #include "c_lib/*.h" ' and use the functions from the connected libraries**
+
+**2) write "make" in the console**
