@@ -198,7 +198,10 @@
         - output
           ```java
              [ 197 0 12 29 99 103 ]%
-             // yes, 197 is an additional code for the digit -59 ``` 5. #include **"asm_lib/`sys.h`"** - this library implements system calls: **time_now** - this function enters the number 13 into the required register, thereby, after calling interrupt 80, the function 13 of this interrupt is applied to execution, which returns the number of seconds that have elapsed since January 1, 1970.
+             // yes, 197 is an additional code for the digit -59 
+          ```
+5. #include **"asm_lib/`sys.h`"** - this library implements system calls:
+    - **time_now** - this function enters the number 13 into the required register, thereby, after calling interrupt 80, the function 13 of this interrupt is applied to execution, which returns the number of seconds that have elapsed since January 1, 1970.
         - code
           ```c
             unsigned long long int now = c_time_now();
