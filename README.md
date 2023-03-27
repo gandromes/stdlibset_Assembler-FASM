@@ -198,9 +198,114 @@
         - output
           ```java
              [ 197 0 12 29 99 103 ]%
-             // yes, 197 is an additional code for the digit -59
+             // yes, 197 is an additional code for the digit -59 ``` 5. #include **"asm_lib/`sys.h`"** - this library implements system calls: **time_now** - this function enters the number 13 into the required register, thereby, after calling interrupt 80, the function 13 of this interrupt is applied to execution, which returns the number of seconds that have elapsed since January 1, 1970.
+        - code
+          ```c
+            unsigned long long int now = c_time_now();
+            c_print_number(now);
           ```
-5. #include **"asm_lib/`sys.h`"** - this library implements system calls:
+        - output
+          ```java
+            1996900528%
+          ```
+    - **input_string** - this function enters the number 3 into the rax register and the number 2 into the rbx register, after calling 80, the interrupt is executed by the 3 function of this interrupt with option 2, which tells the computer to wait for input from the user until he presses enter, as the last character, function automatically adds byte 0
+        - code
+          ```c
+            #define buffer_size 12
+            static char buffer[buffer_size];
+            c_print_string("Your name: ");
+            char* name = c_input_string(buffer, buffer_size);
+            c_print_f("Your name is %s\n", name);
+          ```
+        - input
+          ```java
+            Your name: Denis
+          ```
+        - output
+          ```java
+            Your name is Denis
+            %
+          ```
+    - **input_char** - this function is identical to the c_input_string() function, only the buffer and the buffer size are initially set and sewn into the function.
+        - code
+          ```c
+            c_print_string("*ink\nWhat letter can be substituted for * into this word: ");
+            c_print_f("Ok, your answer ->> %cink\n", c_input_char());
+          ```
+        - input
+          ```java
+            *ink
+            What letter can be substituted for * into this word: L
+          ```
+        - output
+          ```java
+            Ok, your answer ->> Link
+            %
+          ```
+    - **input_number** - this function is identical to the c_input_string() function, only the buffer and buffer size are initially set and sewn into the function, and the response is converted to a number using the c_string_to_number() function.
+        - code
+          ```c
+            c_print_string("Your age: ");
+            c_print_f("You were born around %d year\n", (1970 + (c_time_now() / 31536000)) - c_input_number());
+          ```
+        - input
+          ```java
+            Your age: 21
+          ```
+        - output
+          ```java
+            You were born around 2002 year
+            %
+          ```
+    - **c_fcreate** - this function calls the 8th function of the 80th interrupt, passing the filename and permissions. Creates a file and returns its handle.
+        - code
+          ```c
+            unsigned char descriptor = c_fcreate("xxx.c", 0666);
+          ```
+        - filesystem
+          ```java
+            ls
+              -rw- xxx.c
+          ```
+    - **c_fdelete** - this function calls the 10th function from the 80th interrupt, passing the filename and then deletes it.
+        - code
+          ```c
+            c_fdelete("xxx.c");
+          ```
+    - **c_fopen** - this function calls the 5th function from the 80th interrupt, passing the filename and some mode from [RDONLY=0, WRONLY=1, RDWR=2], returns the handle of the open file.
+        - code
+          ```c
+            unsigned long long int descriptor = c_fopen("xxx.c", 1);
+          ```
+    - **c_fclose** - this function calls the 6th function from the 80th interrupt, passing descriptor and then close file.
+        - code
+          ```c
+            unsigned long long int descriptor = c_fopen("xxx.c", 1);
+            c_fclose(descriptor);
+          ```
+    - **c_fwrite** - this function calls the 4th function from the 80th interrupt, passing the file descriptor, data, and data length. Internally, it calls the c_fseek function, which determines the cursor position for writing and changing [set=0, cur=1, end=2] by default, this is [cur=1] at the end, we will receive the recorded data by their length in the file.
+        - code
+          ```c
+            unsigned char descriptor = c_fcreate("xxx.c", 0666);
+            char* data = "#include <stdio.h>\n\nint main(void)\n{\n\tprintf(\"Hello world!\\n\");\n}";
+            c_fwrite(descriptor, data, c_length_string(data));
+            c_fclose(descriptor);
+          ```
+    - **c_fread** - this function calls the 3th function from the 80th interrupt, passing the file descriptor, buffer, and buffer length. Internally, it calls the c_fseek function, which determines the cursor position for reading and modifying [set=0, cur=1, end=2] by default, this is [cur=1] at the end we will get a buffer into which the file was read for as long as the buffer length is determined.
+        - code
+          ```c
+            static _uint8_t buffer[SIZE];
+            unsigned char descriptor = c_fcreate("xxx.c", 0666);
+            c_fread(descriptor, buffer, SIZE);
+            c_print_f("%s\n", buffer);
+          ```
+    - **c_fseek** - this internal function calls the 19th function of the 80th interrupt takes a descriptor, some modification from the list [set=0, cur=1, end=2] which affects how the functions for reading and writing and the cursor position will behave. This function is used under the hood of others in its pure form, it is useless, but you can use it to implement your functions.
+        - code
+          ```c
+            ... // some code
+            c_fseek(descriptor, 0, 0);
+            ... // next some code
+          ```
     - **c_exit** - this function passes the necessary parameters to the registers to terminate the program and causes a system interrupt.
         - code
           ```c
