@@ -3,11 +3,7 @@ typedef unsigned short int _uint16_t;
 typedef unsigned char _uint8_t;
 
 extern _uint64_t c_time_now(void);
-<<<<<<< HEAD
 extern _uint8_t* c_input_string(_uint8_t* strBuffer, _uint64_t strBuffer_size);
-=======
-extern _uint8_t* c_input_string(_uint8_t* str, _uint64_t size);
->>>>>>> 0fe83a83d1a12113ee5c88799832e3495f3e80bb
 extern _uint64_t c_input_char(void);
 extern _uint64_t c_input_number(void);
 extern _uint64_t c_fcreate(_uint8_t* filename, _uint16_t permissions);
