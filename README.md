@@ -2,6 +2,7 @@ RU: Красочный пример реализации моей Библиот
 ![image](https://github.com/user-attachments/assets/2846a564-101c-44c9-8e13-1fe6818a7b33)
 > ОПИСАНИЕ ПРОИСХОДЯЩЕГО: создание файла "xxx.c" со следующим наполнением "#include <stdio.h>\n\nint main(void)\n{\n\tprintf(\"Hello world!\\n\");\n}" сохранение и вывод содержимого получившигося файла "xxx.c" в консоль, удаление файла "xxx.c" и закратие программы.
 
+
 EN: 
 # About the project:
 - ***This project was created in order to demonstrate my skills in the Assembly(FASM) language and learn how to create libraries for high-level programming languages on it, and I also learned how to link and compile libraries. Implemented (>30) functions distributed across 5 libraries that can be used into "C" language.***
